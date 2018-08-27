@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<title>长江启林</title>
+</head>
+	<link rel="stylesheet" type="text/css" href="__INDEX__/css/style.css">
+	<link rel="stylesheet" type="text/css" href="__INDEX__/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="__INDEX__/css/animate.min.css">
+	<script type="text/javascript" src="__INDEX__/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="__INDEX__/js/flexslider.js"></script>
+	<script type="text/javascript" src="__INDEX__/js/banner.js"></script>
+<body>
+<div class="container">
+	<div class="header">
+
+		{include file="public/top"}
+
+		<div class="in-banner">
+        	<div class="ban-tit"><h1>动态</h1><span>DYNAMIC</span></div>
+            <img src="__INDEX__/images/ban5.jpg">
+		</div>
+	</div><!--header end-->
+
+	<article>
+        
+        <div class="box inside cl">
+            <div class="in-left">
+            	<img src="__INDEX__/images/img04.jpg" alt="">
+                
+                <ul>
+                    <li class="active"><a href="{:url('dynamic/index')}">公司新闻</a></li>
+                    <li><a href="{:url('dynamic/Nametwo')}">媒体报道</a></li>
+                </ul>
+                
+                <div class="tel">
+                	<h2>咨询热线</h2>
+					<span>{$telres.tel}</span>
+					<span>{$telres.email}</span>
+                </div>
+            </div>
+            
+            <div class="in-right cl">
+              <div class="crumb"><a href="index.html">首页</a>><a href="new.html">动态</a>><a>公司新闻</a></div>
+              <div class="in-main">
+              	 <ul class="cl text-list">
+					 {volist name="comnews" id="comnewsRes"}
+                 	<li class="text-item">
+                    	<a class="cl" href="">
+                        	<div class="tl-left">
+                            	<h1>{$comnewsRes.title}</h1>
+                                <span>{$comnewsRes.deic}</span>
+                            </div>
+                            <div class="tl-time">{$comnewsRes.time|mb_substr=0,10,'utf-8'}</div>
+                        </a>
+                    </li>
+					 {/volist}
+
+                 </ul>
+
+				  <ul class="page cl pagination" >
+					  <li>第{$comnews->currentPage()}页 / 共{$comnews->lastPage()}页</li>
+					  <li class="page01"><a href="?page=1" >首页</a></li>
+					  <li class="page01 active"><a {eq name="$comnews->currentPage()" value="1"}href ="javascript:return false;" {/eq} href="?page={$comnews->currentPage()-1}">上一页</a></li>
+					  <?php for($i=0;$i<$comnews->lastPage();$i++){?>
+					  <li class="page02">
+						  <a {if condition="$comnews->currentPage()-1 eq $i"} class="current" {/if} href="?page=<?php echo $i+1;?>"><?php echo $i+1;?></a>
+					  </li>
+					  <?php } ?>
+					  <li class="page01 ">
+						  <a {eq name="$comnews->currentPage()" value="$comnews->lastPage()"}href ="javascript:return false;" {/eq} href="?page={$comnews->currentPage()+1}">下一页</a>
+					  </li>
+					  <li class="page01" style=" padding-right:0"><a href="?page={$comnews->lastPage()}">尾页</a></li>
+				  </ul>
+              </div>
+            </div>
+        </div>
+
+	</article>
+
+	<!--footer引入-->
+	{include file="public/footer"}
+	<!--footer引入-->
+
+    
+    
+    
+		
+
+	<div class="asid_share" id="asid_share">
+		<!--<div class="asid_share_box relative">
+			<a href="#">
+				<img alt="我有话说" title="我有话说" class="adid_icon" src="__INDEX__/images/icon_say.png">
+			</a>
+		</div>
+
+		<div class="asid_share_box relative">
+			<a href="#">
+				<img alt="新版帮助" title="新版帮助" class="adid_icon" src="__INDEX__/images/icon_help.png">
+			</a>
+
+			<div class="asid_share_triangle" style="display:none;">
+				<em class="border_sj">&#9670;</em>
+				<span class="con_sj">&#9670;</span>
+		    </div>
+
+			<div class="asid_sha_layer" style="display:none;">
+				<ul class="asid_help_list" style="width:130px;">
+					<li><a href="#">测试数据</a></li>
+					<li class="only"><a href="#">测试数据</a></li>
+					<li><a href="#">测试数据</a></li>
+					<li><a href="#">测试数据</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="asid_share_box relative">
+			<a href="#">
+				<img alt="扫二微码" title="扫二微码" class="adid_icon" src="__INDEX__/images/icon_sweep.png">
+			</a>
+
+			<div class="asid_share_triangle" style="display:none;">
+				<em class="border_sj">&#9670;</em>
+		    	<span class="con_sj">&#9670;</span>
+	    	</div>
+
+			<div class="asid_sha_layer" style="width:250px;display:none;">
+				<p class="sweep_img"><img src="__INDEX__/images/erweima.jpg" width="220"></p>
+				<p class="pb6"><b>扫一扫上面的二维码图案，关注微信</b></p>
+			</div>
+		</div>-->
+
+		<div class="asid_share_box relative" style="display:none;">
+			<a href="#"><img alt="返回顶部" title="返回顶部" class="adid_icon" src="__INDEX__/images/icon_back.png"></a>
+		</div>
+	</div><!-- top end -->
+    
+    
+	<script type="text/javascript" src="js/top.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//图片滚动特效
+			$('#asid_share').hhShare({
+				cenBox     : 'asid_share_box',  //里边的小层
+				icon       : 'adid_icon',
+				addClass   : 'red_bag',
+				titleClass : 'asid_title',
+				triangle   : 'asid_share_triangle', //鼠标划过显示图层，边上的小三角
+				showBox    : 'asid_sha_layer' //鼠标划过显示图层
+			});
+		});
+	</script>
+
+</div>
+</body>
+</html>

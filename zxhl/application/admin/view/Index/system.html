@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <title>{$favicon['site_name']}</title>
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+    <link rel="icon" href="__FAICON__/favicon.ico" type="image/x-icon" />
+
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+
+</head>
+<body>
+<!-- 头部 -->
+{include file='public/top'/}
+
+<!-- /头部 -->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        {include file='public/left'}
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">系统</a>
+                    </li>
+                    <li>
+                        <a href="{:url('lis')}">配置管理</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-header bordered-bottom bordered-blue">
+                                <span class="widget-caption">网站配置</span>
+                            </div>
+                            <div class="widget-body">
+                                <div id="horizontal-form">
+                                    <!--enctype="multipart/form-data"    注意这个属性  是将文件以二进制的形式上传，这样可以实现多种类型的文件上传-->
+                                    <form class="form-horizontal" role="form" action="{:url('system/updateSytem')}" method="post" enctype="multipart/form-data">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center" width="10%">配置名称</th>
+                                                <th class="text-left">配置内容</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {volist name="system" id="Systemres"}
+                                            <!--添加一个隐藏id-->
+                                            <input type="hidden" name="id" value="{$Systemres.id}">
+                                            <tr>
+                                                <td class="text-right" width="10%" style="line-height: 30px">站点名称 	</td>
+                                                <td class="text-left">
+                                                    <input type="text" name="site_name" value="{$Systemres.site_name}" style="width: 560px;height: 30px">
+                                                    <p class="help-block col-sm-4 red" style="float: right">* 必填</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right" width="10%" style="line-height: 30px">站点关键字</td>
+                                                <td class="text-left">
+                                                    <input type="text" name="site_keywords" value="{$Systemres.site_keywords}" style="width: 560px;height: 30px">
+                                                    <p class="help-block col-sm-4 red" style="float: right">* 必填</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right" width="10%" style="line-height: 30px">站点描述 	</td>
+                                                <td class="text-left">
+                                                    <input type="text" name="site_description" value="{$Systemres.site_description}" style="width: 560px;height: 30px">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right" width="10%" style="line-height: 30px">站点标志</td>
+                                                <td class="text-left">
+                                                    <input type="file" name="site_logo" style="width: 300px; height: 30px;float:left">
+                                                    {if condition="$Systemres.site_logo eq ''"}
+                                                    暂无缩略图
+                                                    {else\}
+                                                    <img src="__FAICON__/{$Systemres.site_logo}" style="width: 80px; height: 30px; display: inline-block;float:left" >
+                                                    {/if}
+                                                    <p class="help-block col-sm-4 red" style="float: right">* 必填</p>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="text-right" width="10%" style="line-height: 30px">是否关闭网站</td>
+                                                <td class="text-left">
+                                                <label style="margin-left: 20px">
+                                                    <input  name="site_closed" {if condition="$Systemres.site_closed eq 'yes'"} checked="checked"{/if} type="radio" value="yes"><span class="text">是</span></label>
+                                                <label style="margin-left: 20px">
+                                                    <input  name="site_closed"  {if condition="$Systemres.site_closed eq 'no'"} checked="checked"{/if}  type="radio" value="no"><span class="text">否</span></label>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="text-right" width="10%" style="line-height: 30px">ICP备案证书号 	</td>
+                                                <td class="text-left">
+                                                    <input type="text" name="icp" value="{$Systemres.icp}" style="width: 560px;height: 30px">
+                                                    <p class="help-block col-sm-4 red" style="float: right">* 必填</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right" width="10%" style="line-height: 30px">公司客服</td>
+                                                <td class="text-left">
+                                                    <input type="text" name="tel" value="{$Systemres.tel}" style="width: 560px;height: 30px">
+                                                    <p class="help-block col-sm-4 red" style="float: right">* 添加多个电话请用逗号隔开</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right" width="10%" style="line-height: 30px">客服qq</td>
+                                                <td class="text-left">
+                                                    <input type="text" name="qq"  value="{$Systemres.qq}" style="width: 560px;height: 30px ">
+                                                    <p class="help-block col-sm-4 red" style="float: right">* 添加多个QQ请用逗号隔开</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right" width="10%" style="line-height: 30px">公司邮箱</td>
+                                                <td class="text-left"><input type="text" name="email" value="{$Systemres.email}" style="width: 560px;height: 30px"></td>
+                                            </tr>
+                                            {/volist}
+                                            </tbody>
+                                        </table>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-default">保存信息</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- /Page Content -->
+    </div>
+</div>
+
+<!--Basic Scripts-->
+<script src="__ADMIN__/style/jquery_002.js"></script>
+<script src="__ADMIN__/style/bootstrap.js"></script>
+<script src="__ADMIN__/style/jquery.js"></script>
+<!--Beyond Scripts-->
+<script src="__ADMIN__/style/beyond.js"></script>
+
+<!--引入脚本-->
+<script src="__ADMIN__/ueditor/ueditor.config.js"></script>
+<script src="__ADMIN__/ueditor/ueditor.all.min.js"></script>
+<script src="__ADMIN__/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<!--实例化脚本-->
+<script type="text/javascript">
+    UE.getEditor('contenter',{initialFrameWidth:800,initialFrameHeight:400});
+    UE.getEditor('deic',{initialFrameWidth:800,initialFrameHeight:400});
+</script>
+
+
+
+</body></html>

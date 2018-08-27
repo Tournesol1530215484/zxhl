@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>{$favicon['site_name']}</title>
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+    <link rel="icon" href="__FAICON__/favicon.ico" type="image/x-icon" />
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+
+    <!--鼠标点击事件-->
+    <script src="__ADMIN__/style/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript">
+        //ajax操作
+        $(document).ready(function(){
+            $('#shaixuan').click(function(){
+                //获取input输入的值
+                var title=$('#title').val();
+                var keywords=$('#keywords').val();
+                var pid=$('#id').val();
+                console.log(keywords);
+                console.log(keywords);
+                console.log(keywords);
+                $.ajax({
+                    method:"POST",
+                    url:'{:url("/admin/Server/SelectServer")}',
+                    data:{'key':keywords},
+                    dataType:"json",
+                    success:function(msg) {
+                        console.log(msg);
+                     //  $('#content').empty();
+                     // $("#content").append(msg);
+                    },error:function(err,tt,kk){
+                        alert('出现错误：'+JSON.stringify(err)+'状态:'+tt+'原因：'+kk);
+                    }
+        })
+        })
+        })
+
+    </script>
+
+    <!--doaction-->
+    
+</head>
+
+<body>
+<!-- 头部 -->
+{include file='public/top'/}
+<!-- /头部 -->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        {include file='public/left'/}
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">系统</a>
+                    </li>
+                    <li class="active">项目管理</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-header bordered-bottom bordered-blue">
+                                <span class="widget-caption">项目管理</span>
+                            </div>
+
+
+                            <!--查询操作开始-->
+                         <form class="form-horizontal" role="form"  method="post" enctype="multipart/form-data" action="SelectProman" >
+                                <div style="float: left">
+                                    <div class="input-icon icon-left input-group-sm" style="width: 150px;float: left;margin: 10px">
+                                        <input class="form-control input-sm"   name="keywords" value="" type="text" >
+                                        <i class="glyphicon glyphicon-search blue"></i>
+                                    </div>
+                                    <span class="graded label label-success" style="margin-top: 15px;padding-right: 15px">关键字</span>
+                                </div>
+                                <div style="float: left">
+                                    <div class="input-icon icon-left input-group-sm" style=" width:220px;float: left;margin: 10px">
+                                        <select name="pid" style="margin-left: 15px">
+                                            <option value="0">请选择</option>
+                                            {volist name="Cate" id="CateRes"}
+                                            <option value="{$CateRes.id}">
+                                                {if condition="$CateRes['lever'] neq 0"}{/if}<?php echo str_repeat('-',$CateRes['lever']*6)?>
+                                                {$CateRes.cate_name}
+                                            </option>
+                                            {/volist}
+
+                                        </select>
+                                    </div>
+                                    <span class="graded label label-success" style="margin-top: 15px">所属栏目</span>
+                                </div>
+                                 <div style="float: left">
+                                     <button class="btn shiny  " type="submit"  style="margin:10px">筛选</button>
+                                 </div>
+
+                           </form>
+                            <!--查询操作结束-->
+
+
+
+                            <div class="widget">
+                                <form  name="action" class="form-horizontal" role="form"  method="post" enctype="multipart/form-data" action="batch">
+                                <div class="widget-body">
+
+                                    <!--添加项目开始-->
+                                    <button type="button"  class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('promanAdd')}'"> <i class="fa fa-plus"></i> 添加项目</button>
+                                    <!--添加项目结束-->
+                                    <!--数据进行显示-->
+                                        <table class="table table-bordered table-hover" >
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 10px">
+                                                    <label>
+                                                        <input class="checkboxes" value="chkall" type="checkbox"   name="chkall" id="selectAll"   >
+                                                        <span class="text"></span>
+                                                    </label>
+                                                </th>
+                                                <th class="text-center" >项目名称</th>
+                                                <th class="text-center">关键字</th>
+                                                <th class="text-center">缩略图</th>
+                                                <th class="text-center">简介</th>
+                                                <th class="text-center">排序</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                            </thead>
+                                        <tbody id="content">
+                                        {volist name="Proman" id="PromanRes"}
+                                            <tr >
+                                                <!--显示位置-->
+                                                    <td  width="2%">
+                                                        <label>
+                                                            <input class="checkboxes" width="5%" value="{$PromanRes.id}" type="checkbox"   name="checkbox[]" >
+                                                            <span class="text" ></span>
+                                                         </label>
+                                                    </td>
+                                                     <td class="text-center" width="10%">{$PromanRes.title|cut_text=6}</td>
+                                                     <td class="text-center" width="10%">{$PromanRes.keywords|cut_text=6}</td>
+                                                     <td class="text-center" width="10%">
+                                                         {if condition="$PromanRes.image eq ''" }
+                                                         暂无缩略图
+                                                         {else\}
+                                                         <img src="__PICTURE__/{$PromanRes.image}" style="width: 120px" height="30px">
+                                                         {/if}
+                                                     </td>
+                                                    <td class="text-center" width="20%">{$PromanRes.content|cut_text=15}</td>
+                                                     <td style="text-align: center" width="10%">
+                                                         <input type="text" value="{$PromanRes.sort}"  name="sort[{$PromanRes.id}]" style="width: 30px;height: 30px;text-align: center" >
+                                                     </td>
+                                                    <td style="text-align: center " width="10%">
+                                                        <a href="{:url('promanDel',array('id'=>$PromanRes.id))}"><button class="btn shiny btn-danger " type="button">删除</button></a>
+                                                        <a href="{:url('promanEdit',array('id'=>$PromanRes.id))}"><button class="btn shiny btn-blue " type="button">编辑</button></a>
+                                                    </td>
+                                            </tr>
+                                        {/volist}
+                                            <tr>
+                                                <td colspan="8" height="20px">
+                                                    <button class="btn shiny btn-yellow " type="submit"  tooltip="排序"  style="margin-left: 79.5%" >排序</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                        </table>
+
+                                    <div style="margin-top: 10px;float: right">
+                                        {$Proman->render()}
+                                    </div>
+                                     <!--批量移动删除操作-->
+                                        <div class="action">
+                                            <select class="btn-group" style="margin:10px;width: 150px" name="action" onchange="douAction()">
+                                                <option value="0">请选择...</option>
+                                                <option value="del_all">删除</option>
+                                                <option value="category_move">移动至</option>
+                                            </select>
+                                            <select name="new_cat_id" class="btn-group" style="margin:10px;width: 150px ;display: none" >
+                                                <option value="0">未分类</option>
+                                                {volist name="Cate" id="CateRes"}
+                                                <option value="{$CateRes.id}">
+                                                    {if condition="$CateRes['lever'] neq 0"}{/if}<?php echo str_repeat('-',$CateRes['lever']*6)?>
+                                                    {$CateRes.cate_name}
+                                                </option>
+                                                {/volist}
+
+                                            </select>
+                                            <button class="btn shiny  " type="submit" style="margin:10px">执行</button>
+                                        </div>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- /Page Body -->
+    </div>
+    <!-- /Page Content -->
+</div>
+	    <!--Basic Scripts-->
+<script src="__ADMIN__/style/jquery_002.js"></script>
+<script src="__ADMIN__/style/bootstrap.js "></script>
+<script src="__ADMIN__/style/jquery.js"></script>
+<!--Beyond Scripts-->
+<script src="__ADMIN__/style/beyond.js"></script>
+
+<!--模糊查询操作-->
+
+<!--批量操作-->
+<script type="text/javascript">
+    onload = function()
+    {
+        document.forms['action'].reset();
+    }
+    function douAction(){
+        var frm = document.forms['action'];
+        frm.elements['new_cat_id'].style.display = frm.elements['action'].value == 'category_move' ? '' : 'none';
+    }
+
+</script>
+
+<!--全选操作-->
+<script type="text/javascript">
+    $(function(){
+        $("#selectAll").bind("click",function(){
+            if($(this).prop("checked")){
+                $("input[type='checkbox']").not(this).prop("checked",true);
+            }else{
+                $("input[type='checkbox']").not(this).prop("checked",false);
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>

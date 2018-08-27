@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>{$favicon['site_name']}</title>
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+    <link rel="icon" href="__FAICON__/favicon.ico" type="image/x-icon" />
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+
+    <!--鼠标点击事件-->
+    <script src="__ADMIN__/style/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript">
+        //ajax操作
+        $(document).ready(function(){
+            $('#shaixuan').click(function(){
+                //获取input输入的值
+                var keywords=$('#key').val();
+                console.log(keywords);
+                $.ajax({
+                    method:"POST",
+                    url:'{:url("/admin/link/Linkres")}',
+                    data:{'key':keywords},
+                    dataType:"json",
+                    success:function(msg) {
+                        console.log(msg);
+                       $('#content').empty();
+                      $("#content").append(msg);
+                    },error:function(err,tt,kk){
+                        alert('出现错误：'+JSON.stringify(err)+'状态:'+tt+'原因：'+kk);
+                    }
+        })
+        })
+        })
+
+    </script>
+
+    <!--doaction-->
+    
+</head>
+
+<body>
+<!-- 头部 -->
+{include file='public/top'/}
+<!-- /头部 -->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        {include file='public/left'/}
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">系统</a>
+                    </li>
+                    <li class="active">友情链接</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-header bordered-bottom bordered-blue">
+                                <span class="widget-caption">友情链接</span>
+                            </div>
+                            <div class="widget">
+
+                                <form  name="action" class="form-horizontal" role="form"  method="post" enctype="multipart/form-data" action="batch">
+                                <div class="widget-body">
+                                    <!--查询操作开始-->
+                                    <div class="input-icon icon-left input-group-sm" style="width: 150px;float: left;margin: 10px">
+                                        <input class="form-control input-sm" id="key" name="key" value="" type="text" >
+                                        <i class="glyphicon glyphicon-search blue"></i>
+                                    </div>
+                                    <button class="btn shiny "  type="button" id="shaixuan" style="margin:10px" value="">筛选</button>
+                                    <!--查询操作结束-->
+                                    <!--添加链接开始-->
+                                    <button type="button"  class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('addlink')}'"> <i class="fa fa-plus"></i> 添加链接</button>
+                                    <!--添加链接结束-->
+                                    <!--数据进行显示-->
+                                        <table class="table table-bordered table-hover" >
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 10px">
+                                                    <label>
+                                                        <input class="checkboxes" value="chkall" type="checkbox"   name="chkall" id="selectAll"   >
+                                                        <span class="text"></span>
+                                                    </label>
+                                                </th>
+                                                <th class="text-center" >链接名称</th>
+                                                <th class="text-center">地址</th>
+                                                <th class="text-center">缩略图</th>
+                                                <th class="text-center">置顶</th>
+                                                <th class="text-center">置尾</th>
+                                                <th class="text-center">排序</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                            </thead>
+                                        <tbody id="content">
+                                            {volist name="Link" id="lisres"}
+                                            <tr >
+                                                <!--显示位置-->
+                                                    <td>
+                                                        <label>
+                                                            <input class="checkboxes" value="{$lisres.id}" type="checkbox"   name="checkbox[]" >
+                                                            <span class="text"></span>
+                                                         </label>
+                                                    </td>
+                                                     <td class="text-center" width="15%">{$lisres.nav_name}</td>
+                                                     <td class="text-center" width="20%">{$lisres.nav_addres}</td>
+                                                     <td class="text-center" width="20%">
+                                                         {if condition="$lisres['nav_img'] eq ''"}
+                                                         暂无缩略图
+                                                         {else\}
+                                                         <img src='__PICTURE__/{$lisres.nav_img}' style='width: 100px' height='40px'>
+                                                         {/if}
+                                                     </td>
+                                                    <td class="text-center" width="7.5%">顶部</td>
+                                                    <td class="text-center" width="7.5%">尾部</td>
+                                                     <td style="text-align: center" width="10%">
+                                                         <input type="text" value="{$lisres.nav_pai}"  name="sort[{$lisres.id}]" style="width: 30px;height: 30px;text-align: center" >
+                                                     </td>
+                                                    <td style="text-align: center " width="20%">
+                                                        <a href="{:url('del',array('id'=>$lisres['id']))}"><button class="btn shiny btn-danger " type="button">删除</button></a>
+                                                        <a href="{:url('edit',array('id'=>$lisres['id']))}"><button class="btn shiny btn-blue " type="button">编辑</button></a>
+                                                    </td>
+                                            </tr>
+                                            {/volist}
+                                            <tr>
+                                                <td colspan="8" height="20px">
+                                                    <button class="btn shiny btn-yellow " type="submit"  tooltip="排序"  style="margin-left: 74%" >排序</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                        </table>
+
+                                    <div style="margin-top: 10px;float: right">
+                                        {$Link->render()}
+                                    </div>
+                                     <!--批量移动删除操作-->
+                                        <div class="action">
+                                            <select class="btn-group" style="margin:10px;width: 150px" name="action" onchange="douAction()">
+                                                <option value="0">请选择...</option>
+                                                <option value="del_all">删除</option>
+                                                <option value="category_move">移动至</option>
+                                            </select>
+                                            <select name="new_cat_id" class="btn-group" style="margin:10px;width: 150px ;display: none" >
+                                                <option value="0">未分类</option>
+                                                <option value="mainnav">主导航栏</option>
+                                                <option value="top">顶部</option>
+                                                <option value="bottom">底部</option>
+                                            </select>
+                                            <button class="btn shiny  " type="submit" style="margin:10px">执行</button>
+                                        </div>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- /Page Body -->
+    </div>
+    <!-- /Page Content -->
+</div>
+	    <!--Basic Scripts-->
+<script src="__ADMIN__/style/jquery_002.js"></script>
+<script src="__ADMIN__/style/bootstrap.js "></script>
+<script src="__ADMIN__/style/jquery.js"></script>
+<!--Beyond Scripts-->
+<script src="__ADMIN__/style/beyond.js"></script>
+
+<!--模糊查询操作-->
+
+<!--批量操作-->
+<script type="text/javascript">
+    onload = function()
+    {
+        document.forms['action'].reset();
+    }
+    function douAction(){
+        var frm = document.forms['action'];
+        frm.elements['new_cat_id'].style.display = frm.elements['action'].value == 'category_move' ? '' : 'none';
+    }
+
+</script>
+
+<!--全选操作-->
+<script type="text/javascript">
+    $(function(){
+        $("#selectAll").bind("click",function(){
+            if($(this).prop("checked")){
+                $("input[type='checkbox']").not(this).prop("checked",true);
+            }else{
+                $("input[type='checkbox']").not(this).prop("checked",false);
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+<div class="page-sidebar" id="sidebar">
+    <!-- Page Sidebar Header-->
+    <div class="sidebar-header-wrapper">
+        <input class="searchinput" type="text">
+        <i class="searchicon fa fa-search"></i>
+        <div class="searchhelper">Search Reports, Charts, Emails or Notifications</div>
+    </div>
+    <!-- /Page Sidebar Header -->
+    <!-- Sidebar Menu -->
+    <ul class="nav sidebar-menu">
+        <!--Dashboard-->
+
+        <!--网站首页-->
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-desktop"></i>
+                <span class="menu-text">网站首页</span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="{:url('system/lis')}">
+                        <span class="menu-text">站点管理</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('Carousel/index')}">
+                        <span class="menu-text">首页轮播图</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('Link/lis')}">
+                        <span class="menu-text">友情链接</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('Copyright/Copyindex')}">
+                        <span class="menu-text">版权管理</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!--管理员-->
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-user"></i>
+                <span class="menu-text">管理员</span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="{:url('admin/lisAdmin')}">
+                        <span class="menu-text">管理列表</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('AuthGroup/lisAuthGroup')}">
+                        <span class="menu-text">用户组列表</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('AuthRule/lisAuthRule')}">
+                        <span class="menu-text">权限列表</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--关于我们开始-->
+        <li>
+            <a href="" class="menu-dropdown">
+                <i class="menu-icon fa fa-users"></i>
+                <span class="menu-text">关于我们</span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="{:url('Column/columnEdit')}">
+                        <span class="menu-text">企业简介</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('Culture/CultureEdit')}">
+                        <span class="menu-text">企业文化</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!--服务管理-->
+
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-suitcase"></i>
+                <span class="menu-text">服务管理</span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="{:url('ServerCate/CateList')}">
+                        <span class="menu-text">栏目管理</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('Server/Server')}">
+                        <span class="menu-text">服务管理</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+        <!--项目管理-->
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa  fa-bar-chart-o"></i>
+                <span class="menu-text">项目管理</span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="{:url('PromanCate/CateList')}">
+                        <span class="menu-text">栏目管理</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('Proman/Proman')}">
+                        <span class="menu-text">项目列表</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa  fa-bar-chart-o"></i>
+                <span class="menu-text">合作案例</span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="{:url('Cooper/Cooper')}">
+                        <span class="menu-text">合作案例</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--新闻动态-->
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-stack-exchange"></i>
+                <span class="menu-text">新闻动态</span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="{:url('Comnews/ComnewsLis')}">
+                        <span class="menu-text">公司新闻</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('Mednews/MednewsLis')}">
+                        <span class="menu-text">媒体新闻</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!--联系我们-->
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa  fa-envelope-o"></i>
+                <span class="menu-text">联系我们</span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="{:url('Tel/index')}">
+                        <span class="menu-text">联系方式</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:url('Recruit/recruit')}">
+                        <span class="menu-text">招聘信息</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1530215484&site=qq&menu=yes">
+                        <span class="menu-text">开发者联系</span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+
+    </ul>
+    <!-- /Sidebar Menu -->
+</div>

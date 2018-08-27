@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<title>{$favicon['site_name']}</title>
+</head>
+	<link rel="stylesheet" type="text/css" href="__INDEX__/css/style.css">
+	<link rel="stylesheet" type="text/css" href="__INDEX__/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="__INDEX__/css/animate.min.css">
+	<script type="text/javascript" src="__INDEX__/js/jquery-1.10.2.min.js"></script>
+<link rel="icon" href="__FAICON__/favicon.ico" type="image/x-icon" />
+	<script type="text/javascript" src="__INDEX__/js/flexslider.js"></script>
+	<script type="text/javascript" src="__INDEX__/js/banner.js"></script>
+<body>
+<div class="container">
+	<div class="header">
+		<!--header引入-->
+		{include file="public/top"}
+		<!--header引入-->
+		<div class="in-banner">
+        	<div class="ban-tit"><h1>联系</h1><span>CONTACT</span></div>
+            <img src="__INDEX__/images/ban6.jpg">
+		</div>
+	</div><!--header end-->
+
+	<article>
+        
+        <div class="box inside cl">
+            <div class="in-left">
+            	<img src="__INDEX__/images/img04.jpg" alt="">
+                
+                <ul>
+					<li ><a href="{:url('contact/index')}">联系方式</a></li>
+					<li class="active"><a href="{:url('contact/zhaopin')}">招聘信息</a></li>
+                    <li><a href="#">在线地图</a></li>
+                </ul>
+                
+                <div class="tel">
+                	<h2>咨询热线</h2>
+					<span>{$telres.tel}</span>
+					<span>{$telres.email}</span>
+                </div>
+            </div>
+            
+            <div class="in-right cl">
+              <div class="crumb"><a href="index.html">首页</a>><a href="contact.html">联系</a>><a>招聘信息</a></div>
+              <div class="in-main">
+                  <div class="in-contact">
+                  	 <div class="tab cl">
+						 {volist name="Contact" id="ContactRes"}
+                        <ul class="tab-hd">
+                            <li class="active">{$ContactRes.title}</li>
+                            <!--<li>营销策划岗</li>-->
+                            <!--<li>营销策划岗</li>-->
+                        </ul>
+                        <ul class="tab-bd">
+                            <li >
+								{$ContactRes.requirement}
+                            	<!--<strong>工作职责:</strong><br>-->
+                                <!--（1）负责及时、准确做好日常会计审核工作；<br>-->
+                                <!--（2）负责建立健全公司各项财务制度；<br>-->
+                                <!--（3）负责对会计凭证、报表等进行整理、装订、编册、归档；<br>-->
+                                <!--（4）负责按税法及有关要求，及时、准确编制并上报各种纳税报表，办理交纳各种税金的清缴及结算手续；<br>-->
+                                <!--（5）负责及时、准确编制开发成本、在建工程有关明细报表，对各工程项目及时进行统计、分析。<br>-->
+                                <!--<br>-->
+                                <!--<strong>任职资格</strong>：<br>-->
+                                <!--（1）会计学、经济学等相关专业，本科及以上学历，中级以上职称或注册会计师者优先。<br>-->
+                                <!--（2）具有2年以上房地产企业同岗位工作经验；<br>-->
+                                <!--（3）熟悉国家财税法律规范、国家会计法规，担保或投资行业相关政策法规，了解税务法规和相关税收政策，熟悉报税流程。-->
+                            </li>
+                            <!--<li>内容2</li>-->
+                            <!--<li>内容3</li>-->
+							<!--<li>{$ContactRes.requirement}</li>-->
+                        </ul>
+						 {/volist}
+                     </div>
+                     
+                     <script>
+						$(function(){
+							function tabs(tabTit,on,tabCon){
+								$(tabTit).children().hover(function(){
+									$(this).addClass(on).siblings().removeClass(on);
+									var index = $(tabTit).children().index(this);
+									$(tabCon).children().eq(index).show().siblings().hide();
+								});
+							};
+							tabs(".tab-hd","active",".tab-bd");
+						});
+					</script>
+                  </div>   
+              </div>
+            </div>
+        </div>
+
+	</article>
+
+
+
+	<!--footer引入-->
+	{include file="public/footer"}
+	<!--footer引入-->
+
+
+
+
+	<div class="asid_share" id="asid_share">
+		<!--<div class="asid_share_box relative">
+			<a href="#">
+				<img alt="我有话说" title="我有话说" class="adid_icon" src="__INDEX__/images/icon_say.png">
+			</a>
+		</div>
+
+		<div class="asid_share_box relative">
+			<a href="#">
+				<img alt="新版帮助" title="新版帮助" class="adid_icon" src="__INDEX__/images/icon_help.png">
+			</a>
+
+			<div class="asid_share_triangle" style="display:none;">
+				<em class="border_sj">&#9670;</em>
+				<span class="con_sj">&#9670;</span>
+		    </div>
+
+			<div class="asid_sha_layer" style="display:none;">
+				<ul class="asid_help_list" style="width:130px;">
+					<li><a href="#">测试数据</a></li>
+					<li class="only"><a href="#">测试数据</a></li>
+					<li><a href="#">测试数据</a></li>
+					<li><a href="#">测试数据</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="asid_share_box relative">
+			<a href="#">
+				<img alt="扫二微码" title="扫二微码" class="adid_icon" src="__INDEX__/images/icon_sweep.png">
+			</a>
+
+			<div class="asid_share_triangle" style="display:none;">
+				<em class="border_sj">&#9670;</em>
+		    	<span class="con_sj">&#9670;</span>
+	    	</div>
+
+			<div class="asid_sha_layer" style="width:250px;display:none;">
+				<p class="sweep_img"><img src="__INDEX__/images/erweima.jpg" width="220"></p>
+				<p class="pb6"><b>扫一扫上面的二维码图案，关注微信</b></p>
+			</div>
+		</div>-->
+
+		<div class="asid_share_box relative" style="display:none;">
+			<a href="#"><img alt="返回顶部" title="返回顶部" class="adid_icon" src="__INDEX__/images/icon_back.png"></a>
+		</div>
+	</div><!-- top end -->
+    
+    
+	<script type="text/javascript" src="js/top.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//图片滚动特效
+			$('#asid_share').hhShare({
+				cenBox     : 'asid_share_box',  //里边的小层
+				icon       : 'adid_icon',
+				addClass   : 'red_bag',
+				titleClass : 'asid_title',
+				triangle   : 'asid_share_triangle', //鼠标划过显示图层，边上的小三角
+				showBox    : 'asid_sha_layer' //鼠标划过显示图层
+			});
+		});
+	</script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <title>{$favicon['site_name']}</title>
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/houqi.css" rel="stylesheet">
+    <link rel="icon" href="__FAICON__/favicon.ico" type="image/x-icon" />
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    <!--鼠标点击事件-->
+    <script src="__ADMIN__/style/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript">
+        function sort(){
+            document.action.action="{:url('Comnews/bath')}";
+            document.action.submit();
+        }
+        function del_all(){
+            document.action.action="{:url('Comnews/del_all')}";
+            document.action.submit();
+
+        }
+
+        function select(){
+            document.action.action="{:url('Comnews/select')}";
+            document.action.submit();
+        }
+
+        function upsort(){
+            document.action.action="{:url('Comnews/upsort')}";
+            document.action.submit();
+        }
+
+        function dmsort(){
+            document.action.action="{:url('Comnews/dmsort')}";
+            document.action.submit();
+        }
+
+        function uploadsort(){
+            document.action.action="{:url('Comnews/uploadsort')}";
+            document.action.submit();
+        }
+
+        function domnupsort(){
+            document.action.action="{:url('Comnews/domnupsort')}";
+            document.action.submit();
+        }
+    </script>
+</head>
+
+<body>
+<!-- 头部 -->
+{include file='public/top'/}
+<!-- /头部 -->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        {include file='public/left'/}
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li class="active">控制面板</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-header bordered-bottom bordered-blue">
+                                <span class="widget-caption">新闻动态</span>
+                            </div>
+                            <div class="widget">
+                                <form  name="action" class="form-horizontal" role="form"  method="post" enctype="multipart/form-data" action="">
+                                    <div style="float: left"><button class="btn shiny  " type="submit" name="action" value="del_all" onclick="del_all()" style="margin:10px"><i class="fa fa-trash-o"></i> 批量删除</button>  </div>
+                                    <div style="float: left;margin-top: 10px" ><button type="button"  class="btn shiny " onClick="javascript:window.location.href = '{:url('Comnews/ComnewsAdd')}'"><i class="fa fa-plus"></i> 公司新闻</button>  </div>
+                                    <div style="float: left">
+                                        <div class="input-icon icon-left input-group-sm" style="width: 150px;float: left;margin: 10px">
+                                            <input class="form-control input-sm"   name="keywords" value="" type="text" >
+                                            <i class="glyphicon glyphicon-search blue"></i>
+                                        </div>
+                                        <span class="graded label label-success" style="margin-top: 15px;padding-right: 15px">关键字</span>
+                                    </div>
+                                    <div style="float: left">
+                                        <button class="btn shiny  " type="submit" value="select" onclick="select()" style="margin:10px">查询</button>
+                                    </div>
+
+                                    <table class="table table-bordered table-hover" >
+                                        <tbody>
+                                        <tr >
+                                            <th style="width: 10px">
+                                                <label>
+                                                    <input class="checkboxes" value="chkall" type="checkbox"   name="chkall" id="selectAll"   >
+                                                    <span class="text"></span>
+                                                </label>
+                                            </th>
+                                            <th style="text-align: center" width="4%">排序</th>
+                                            <th style="text-align: center" width="10%">标题</th>
+                                            <th style="text-align: center" width="10%">关键词</th>
+                                            <th style="text-align: center" width="15%" >缩略图</th>
+                                            <th style="text-align: center" width="10%">添加时间</th>
+                                            <th style="text-align: center" width="25%">简介</th>
+                                            <!--<th style="text-align: center" width="8%">排序</th>-->
+                                            <th style="text-align: center" width="16%">移动</th>
+                                            <th style="text-align: center">操作</th>
+                                        </tr>
+                                        {volist name="comnews" id="comnewsRes"}
+                                        <tr >
+                                            <td>
+                                                <label>
+                                                    <input class="checkboxes" value="{$comnewsRes.id}" type="checkbox"   name="checkbox[]">
+                                                    <span class="text"></span>
+                                                </label>
+                                            </td>
+                                            <td style="text-align: center">{$comnewsRes.sort}</td>
+                                            <td style="text-align: center">{$comnewsRes.title|cut_text=6}</td>
+
+                                            <td style="text-align: center">{$comnewsRes.keywords|cut_text=6}</td>
+                                            <td style="text-align: center">
+                                                {if condition="$comnewsRes['image'] eq ''"}
+                                                暂无缩略图
+                                                {else\}
+                                                <img src='__PICTURE__/{$comnewsRes.image}' style=' width: 100px' height='40px'>
+                                                {/if}
+                                            </td>
+                                            <td style="text-align: center">{$comnewsRes.time|date="Y-m-d",###}</td>
+                                            <td style="text-align: center">{$comnewsRes.deic|cut_text=30}</td>
+                                            <!--<td style="text-align: center">-->
+                                                <!--<input type="text" value="{$comnewsRes.sort}"  name="sort[{$comnewsRes.id}]" style="width: 30px;height: 30px;text-align: center" >-->
+                                            <!--</td>-->
+                                            <th style="text-align: center" width="8%">
+                                                <input type="hidden" name="id" value="{$comnewsRes.id}">
+                                                <button  class="btn" type="submit" value="{$comnewsRes.sort}" name="pai" onclick="dmsort()">下移</span></button>
+                                                <button class="btn" type="submit"  value="{$comnewsRes.sort}" name="pai" onclick="upsort()">上移</button>
+                                                <button class="btn" type="submit"  value="{$comnewsRes.sort}" name="pai" onclick="uploadsort()">置顶</button>
+                                                <button class="btn" type="submit"  value="{$comnewsRes.sort}" name="pai" onclick="domnupsort()">置尾</i></button>
+                                            </th>
+                                            <td style="text-align: center">
+                                                <a href="{:url('ComnewEdit',array('id'=>$comnewsRes['id']))}"><button class="btn shiny btn-primary " type="button">编辑</button></a>
+                                                <a href="{:url('ComnewDel',array('id'=>$comnewsRes['id']))}"><button class="btn shiny btn-danger " type="button">删除</button></a>
+                                            </td>
+                                        </tr>
+                                        {/volist}
+                                        </tbody>
+                                    </table>
+                                    <div style="margin-top: 10px;float: right">
+                                        {$comnews->render()}
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Body -->
+</div>
+<!-- /Page Content -->
+</div>
+<!--Basic Scripts-->
+<script src="__ADMIN__/style/jquery_002.js"></script>
+<script src="__ADMIN__/style/bootstrap.js "></script>
+<script src="__ADMIN__/style/jquery.js"></script>
+<!--Beyond Scripts-->
+<script src="__ADMIN__/style/beyond.js"></script>
+<!--全选操作-->
+<script type="text/javascript">
+    $(function(){
+        $("#selectAll").bind("click",function(){
+            if($(this).prop("checked")){
+                $("input[type='checkbox']").not(this).prop("checked",true);
+            }else{
+                $("input[type='checkbox']").not(this).prop("checked",false);
+            }
+        });
+    });
+</script>
+</body>
+</html>

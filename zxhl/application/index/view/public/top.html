@@ -1,0 +1,27 @@
+<div class="head-top">
+    <div class="box">
+        <a class="logo" href="index.html"><img src="__INDEX__/images/logo.jpg" /></a>
+        <!--<div class="tel">服务热线：<span>027-66666666</span></div>-->
+        <div class="nav">
+            <ul class="listbox cl">
+                <li><a class="list" href="{:url('index/index')}">首页<br/><small>HOME</small></a>
+                </li>
+                <li onmouseover="show('nav_2');" onmouseout="hide('nav_2')">
+                    <a class="list" href="{:url('about/index')}">关于<br/><small>ABOUT</small></a>
+                </li>
+                <li>
+                    <!--  on  -->
+                    <a class="list " href="{:url('Service/index')}">服务<br/><small>SERVICE</small></a>
+                </li>
+                <li><a class="list" href="{:url('Caser/index')}">案例<br/><small>CASE</small></a></li>
+                <li><a class="list" href="{:url('Project/index')}">项目<br/><small>PROJECT</small></a></li>
+                <li><a class="list" href="{:url('Dynamic/index')}">动态<br/><small>DYNAMIC</small></a></li>
+                <li><a class="list" href="{:url('Contact/index')}">联系<br/><small>CONTACT</small></a></li>
+            </ul>
+            <script type="text/javascript">
+                function show(id){   document.getElementById(id).style.display='block';   }
+                function hide(id){   document.getElementById(id).style.display='none';   }
+            </script>
+        </div>
+    </div>
+</div>

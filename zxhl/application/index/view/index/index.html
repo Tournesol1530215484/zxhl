@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<title>{$favicon['site_name']}</title>
+
+	<link rel="stylesheet" type="text/css" href="__INDEX__/css/style.css">
+	<link rel="stylesheet" type="text/css" href="__INDEX__/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="__INDEX__/css/animate.min.css">
+	<link rel="icon" href="__FAICON__/favicon.ico" type="image/x-icon" />
+
+	<script type="text/javascript" src="__INDEX__/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="__INDEX__/js/flexslider.js"></script>
+	<script type="text/javascript" src="__INDEX__/js/banner.js"></script>
+	<style type="text/css" >
+		#nv{
+			position:fixed;
+			margin-top:400px;
+			width: 120px;
+			height: 120px;
+			float: right;
+			right: 0;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+<!--qq链接-->
+	<div id="nv">
+		{volist name="qq" id="QQ"}
+		<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$QQ}&site=qq&menu=yes">
+			<img border="0" src="http://wpa.qq.com/pa?p=2:{$QQ}:41" alt="你会不会突然的出现" title="你会不会突然的出现">
+		</a>
+		{/volist}
+	</div>
+	<!--qq链接-->
+	<div class="header">
+		<div class="head-top" id="ht-float">
+        	<div class="language">
+                <a href="" class="cn on">中文</a><a href="" class="en">英文</a>
+            </div>
+			<!--header引入-->
+			{include file="public/top"}
+			<!--header引入-->
+		</div>
+		<div class="banner">
+	        <div class="bd">
+	            <ul>
+					{volist name="carousel" id="carouselRes"}
+						{if condition="$carouselRes.show eq 1"}
+	                <li><a href="{$carouselRes.show_link}"><img src="__PICTURE__/{$carouselRes.show_img}"></a></li>
+						{/if}
+					{/volist}
+	          	</ul>
+	        </div>
+	        <span class="prev"></span>
+	        <span class="next"></span>
+	        <div class="hd"><ul></ul></div>
+		</div><!--banner end-->
+			<script type="text/javascript">
+		    $(".banner").hover(function(){
+		        $(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+		    },
+		    function(){
+		        $(this).find(".prev,.next").fadeOut()
+		    });
+		    $(".banner").slide({
+		        titCell: ".hd ul",
+		        mainCell: ".bd ul",
+		        effect: "fold",
+		        autoPlay: true,
+		        autoPage: true,
+		        trigger: "click",
+		        startFun: function(i) {
+		            var curLi = jQuery(".banner .bd li").eq(i);
+		            if ( !! curLi.attr("_src")) {
+		                curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+		            }
+		        }
+		    });
+	    </script><!--benner end-->
+	</div><!--header end-->
+
+	<article>
+    	<!-- about -->
+		<div class="home-about">
+			<div class="box">
+				<h1 class="title1"><img src="__INDEX__/images/title01.jpg"></h1>
+				<h2>{$culture.title}</h2>
+                <span>{$culture.content|cut_text=100}</span>
+                <a class="btn-about" href="{:url('About/index')}">关于我们>></a>
+                
+                <div class="service cl">
+                	<img class="sve-pic" src="__INDEX__/images/service.jpg">
+                    <ul class="cl">
+                    	<li class="sve-item">
+                        	<img src="__INDEX__/images/img01.jpg">
+                    	</li>
+                        <li class="sve-item sve-b">
+                        	<h1>广告运营</h1>
+                            <a href="{:url('Service/Adver')}">查看详细</a>
+                    	</li>
+                        <li class="sve-item">
+                        	<img src="__INDEX__/images/img02.jpg">
+                    	</li>
+                        <li class="sve-item sve-b">
+                        	<h1>创意设计</h1>
+                            <a href="{:url('Service/index')}">查看详细</a>
+                    	</li>
+                        <li class="sve-item">
+                        	<img src="__INDEX__/images/img03.jpg">
+                    	</li>
+                        <li class="sve-item sve-b">
+                        	<h1>新媒体</h1>
+                            <a href="">查看详细</a>
+                    	</li>
+                    </ul>
+                </div>
+			</div>
+		</div>
+
+
+        
+        
+        <!--客户案例-->
+        <div class="home-case">
+			<div class="box">
+            	<h1 class="title1"><img src="__INDEX__/images/title02.jpg"><a href="{:url('Caser/index')}"></a></h1>
+                <ul class="cl">
+					{volist name="cooper" id="cooperRes"}
+                	<li>
+                    	<a href="">
+                        	<img src="__PICTURE__/{$cooperRes.image}">
+                            <h1>{$cooperRes.title}</h1>
+                            <span>{$cooperRes.time|date="Y-m-d",###}</span>
+                        </a>
+                    </li>
+					{/volist}
+                </ul>
+            </div>
+        </div>
+        
+        
+        <!--新闻资讯-->
+        <div class="home-new">
+			<div class="box">
+            	<h1 class="title1"><img src="__INDEX__/images/title03.jpg"><a href="{:url('dynamic/index')}"></a></h1>
+                <ul class="cl">
+					{volist name="mednews" id="mednewsRes"}
+                    <li><a href="">{$mednewsRes.title}<span>({$mednewsRes.time|date="Y-m-d",###})</span></a></li>
+					{/volist}
+					{volist name="comnews" id="comnewsRes"}
+					<li><a href="">{$comnewsRes.title}<span>({$comnewsRes.time|date="Y-m-d",###})</span></a></li>
+					{/volist}
+                </ul>
+            </div>
+        </div>
+        
+        
+        <!--友情链接-->
+        <div class="home-links">
+			<div class="box">
+				<div class="links-box">
+			        <div class="bd cl">
+			            <ul class="cl">
+			                <li>
+								{volist name="link" id="linkRes"}
+			                	<a href=""><img src="__PICTURE__/{$linkRes.nav_img}"></a>
+								{/volist}
+			                </li>
+
+		                </ul>
+	                </div>
+	                <span class="prev"></span>
+	        		<span class="next"></span>
+                </div>
+				<script type="text/javascript">
+				    $(".links-box").hover(function(){
+				        $(this).find(".prev,.next").stop(true, true).fadeTo("show", 1)
+				    },
+				    function(){
+				        $(this).find(".prev,.next")//.fadeOut()//渐隐
+				    });
+				    $(".links-box").slide({  //幻灯片
+				        titCell: ".hd ul",
+				        mainCell: ".bd ul",
+				        effect:"fold", //效果 折叠
+				        autoPlay: true,//自动播放
+				        autoPage: true,//自动分页
+				        trigger: "click", //触发
+				        startFun: function(i) {
+				            var curLi = jQuery(".links-box .bd li").eq(i);
+				            if ( !! curLi.attr("_src")) {
+				                curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+				            }
+				        }
+				    });
+			    </script><!--product-list js end-->
+			</div>
+		</div><!--links end-->
+	</article>
+    
+
+	<!--footer引入-->
+   {include file="public/footer"}
+	<!--footer引入-->
+
+    
+    
+    
+		
+
+	<div class="asid_share" id="asid_share">
+		<!--<div class="asid_share_box relative">
+			<a href="#">
+				<img alt="我有话说" title="我有话说" class="adid_icon" src="__INDEX__/images/icon_say.png">
+			</a>
+		</div>
+
+		<div class="asid_share_box relative">
+			<a href="#">
+				<img alt="新版帮助" title="新版帮助" class="adid_icon" src="__INDEX__/images/icon_help.png">
+			</a>
+
+			<div class="asid_share_triangle" style="display:none;">
+				<em class="border_sj">&#9670;</em>
+				<span class="con_sj">&#9670;</span>
+		    </div>
+
+			<div class="asid_sha_layer" style="display:none;">
+				<ul class="asid_help_list" style="width:130px;">
+					<li><a href="#">测试数据</a></li>
+					<li class="only"><a href="#">测试数据</a></li>
+					<li><a href="#">测试数据</a></li>
+					<li><a href="#">测试数据</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="asid_share_box relative">
+			<a href="#">
+				<img alt="扫二微码" title="扫二微码" class="adid_icon" src="__INDEX__/images/icon_sweep.png">
+			</a>
+
+			<div class="asid_share_triangle" style="display:none;">
+				<em class="border_sj">&#9670;</em>
+		    	<span class="con_sj">&#9670;</span>
+	    	</div>
+
+			<div class="asid_sha_layer" style="width:250px;display:none;">
+				<p class="sweep_img"><img src="__INDEX__/images/erweima.jpg" width="220"></p>
+				<p class="pb6"><b>扫一扫上面的二维码图案，关注微信</b></p>
+			</div>
+		</div>-->
+
+		<div class="asid_share_box relative" style="display:none;">
+			<a href="#"><img alt="返回顶层" title="返回顶层" class="adid_icon" src="__INDEX__/images/icon_back.png"></a>
+		</div>
+	</div><!-- top end -->
+    
+    
+	<script type="text/javascript" src="js/top.js"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			//图片滚动特效
+			$('#asid_share').hhShare({
+				cenBox     : 'asid_share_box',  //里边的小层
+				icon       : 'adid_icon',
+				addClass   : 'red_bag',
+				titleClass : 'asid_title',
+				triangle   : 'asid_share_triangle', //鼠标划过显示图层，边上的小三角
+				showBox    : 'asid_sha_layer' //鼠标划过显示图层
+			});
+		});
+	</script>
+
+
+
+
+	
+	<!-- 滑动页面到指定位置固定 -->
+	<script type="text/javascript">
+		window.onload=
+		function(){
+		    var oDiv = document.getElementById("ht-float"),
+		    H = 640,
+		    Y = oDiv
+		    while (Y) {H += Y.offsetTop; Y = Y.offsetParent}
+		    window.onscroll = function()
+		    {
+		        var s = document.body.scrollTop || document.documentElement.scrollTop
+		        if(s>H) {
+		            oDiv.style = "position:fixed;top:0; z-index:9999; width:100%;"
+		        } else {
+		            oDiv.style = ""
+		        }
+		    }
+		}
+	</script>
+
+
+
+
+
+</div>
+</body>
+</html>
